@@ -1,0 +1,57 @@
+{
+  "release": "R1.0.0-baseline",
+  "system": "CoordinationHub",
+  "scanner_results": [
+    {
+      "scanner": "Veracode",
+      "finding_id": "VER-001",
+      "title": "SQL injection in message lookup",
+      "severity": "High",
+      "control_refs": ["RA-5", "SA-11", "SI-2"],
+      "asset": "coordinationhub-api",
+      "status": "open",
+      "evidence": "String concatenation used in SQL query"
+    },
+    {
+      "scanner": "Burp Suite",
+      "finding_id": "BURP-001",
+      "title": "Stored cross-site scripting in rendered messages",
+      "severity": "Medium",
+      "control_refs": ["RA-5", "SC-7", "SI-2"],
+      "asset": "coordinationhub-web",
+      "status": "open",
+      "evidence": "Message body rendered without output encoding"
+    },
+    {
+      "scanner": "Contrast",
+      "finding_id": "CON-001",
+      "title": "Role header can be forged for admin access",
+      "severity": "Medium",
+      "control_refs": ["AC-3", "IA-2", "SI-4"],
+      "asset": "coordinationhub-api",
+      "status": "open",
+      "evidence": "Runtime path trusts client-supplied role header"
+    },
+    {
+      "scanner": "Aqua",
+      "finding_id": "AQUA-001",
+      "title": "Container runs as root and uses outdated base image",
+      "severity": "High",
+      "control_refs": ["CM-6", "RA-5", "SI-2"],
+      "asset": "coordinationhub-ecr",
+      "status": "open",
+      "evidence": "openjdk:8-jre image and USER root"
+    },
+    {
+      "scanner": "ECR Image Scan",
+      "finding_id": "ECR-001",
+      "title": "Hard-coded database password in image metadata",
+      "severity": "Low",
+      "control_refs": ["IA-5", "CM-6"],
+      "asset": "coordinationhub-ecr",
+      "status": "open",
+      "evidence": "DB_PASSWORD environment variable contains default secret"
+    }
+  ]
+}
+

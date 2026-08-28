@@ -1,0 +1,33 @@
+release: R1.0.1
+system: CoordinationHub
+stages:
+  - name: build
+    action: compile application and build container image
+  - name: sast-veracode
+    action: mock Veracode scan
+    blocks_on:
+      high: 1
+  - name: dast-burpsuite
+    action: mock Burp Suite scan against staging URL
+    blocks_on:
+      high: 1
+      medium: 1
+  - name: iast-contrast
+    action: mock Contrast runtime assessment during integration tests
+    blocks_on:
+      authz_bypass: 1
+  - name: container-aqua
+    action: mock Aqua image and runtime policy scan
+    blocks_on:
+      high: 1
+  - name: ecr-image-scan
+    action: mock registry scan for image CVEs and embedded secrets
+    blocks_on:
+      unapproved_secret: 1
+  - name: poam-update
+    action: update POA&M register with scanner findings and closure evidence
+  - name: cr-board
+    action: submit fixed POA&Ms to CR team for release approval
+  - name: deploy
+    action: deploy only approved CR set to production
+

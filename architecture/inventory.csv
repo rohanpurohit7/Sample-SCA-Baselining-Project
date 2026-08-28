@@ -1,0 +1,10 @@
+asset_id,asset_name,type,boundary_status,owner,environment,criticality,notes
+AST-001,coordinationhub-api,containerized API,in-boundary,AppSec Team,prod,high,Java service deployed to managed Kubernetes
+AST-002,coordinationhub-web,static web client,in-boundary,AppSec Team,prod,medium,Served behind cloud CDN and WAF
+AST-003,coordinationhub-db,managed relational database,in-boundary,Platform Team,prod,high,Stores messages tasks and audit metadata
+AST-004,coordinationhub-queue,managed message queue,in-boundary,Platform Team,prod,medium,Notification events
+AST-005,coordinationhub-ecr,container registry,in-boundary,DevSecOps Team,prod,high,Stores release images
+AST-006,ci-cd-runner,build runner,in-boundary,DevSecOps Team,devsecops,high,Executes scanner and deploy stages
+AST-007,external-idp,identity provider,out-of-boundary,IAM Shared Services,prod,high,Inherited/common control
+AST-008,email-sms-provider,notification provider,out-of-boundary,Vendor Mgmt,prod,medium,External service integration
+

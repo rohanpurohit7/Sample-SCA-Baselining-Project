@@ -1,0 +1,7 @@
+poam_id,source_finding,severity,control_refs,weakness,risk_before,planned_fix,cr_id,status,risk_after,residual_risk_decision
+POAM-001,VER-001,High,"RA-5;SA-11;SI-2",SQL injection in message lookup,High,Replace string-built SQL with prepared statement,CR-001,Closed,Low,Accept
+POAM-002,BURP-001,Medium,"RA-5;SC-7;SI-2",Stored XSS in rendered messages,Medium,Apply output encoding and regression tests,CR-002,Closed,Low,Accept
+POAM-003,CON-001,Medium,"AC-3;IA-2;SI-4",Forged role header permits admin access,Medium,Use validated principal and MFA claim,CR-003,Closed,Low,Accept
+POAM-004,AQUA-001,High,"CM-6;RA-5;SI-2",Container runs as root on outdated image,High,Upgrade base image and run as non-root user,CR-004,Closed,Low,Accept
+POAM-005,ECR-001,Low,"IA-5;CM-6",Default password configured in image metadata,Low,Remove image secret and use secret manager,CR-005,Accepted,Low,Accept with compensating monitoring
+POAM-006,BURP-002,Medium,"AC-3;AU-2;CM-4;IA-2;RA-5;SC-7;SI-2",Missing authorization on new partner receipt endpoint,Medium,Require service authentication partner scope validation and audit logging,CR-006,Open,Low target,Pending remediation evidence

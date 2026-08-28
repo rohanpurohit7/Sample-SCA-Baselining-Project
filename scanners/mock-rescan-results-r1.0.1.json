@@ -1,0 +1,62 @@
+{
+  "release": "R1.0.1-remediation",
+  "system": "CoordinationHub",
+  "scanner_results": [
+    {
+      "scanner": "Veracode",
+      "finding_id": "VER-001",
+      "linked_poam": "POAM-001",
+      "linked_cr": "CR-001",
+      "severity": "High",
+      "status": "fixed",
+      "risk_after": "Low"
+    },
+    {
+      "scanner": "Burp Suite",
+      "finding_id": "BURP-001",
+      "linked_poam": "POAM-002",
+      "linked_cr": "CR-002",
+      "severity": "Medium",
+      "status": "fixed",
+      "risk_after": "Low"
+    },
+    {
+      "scanner": "Contrast",
+      "finding_id": "CON-001",
+      "linked_poam": "POAM-003",
+      "linked_cr": "CR-003",
+      "severity": "Medium",
+      "status": "fixed",
+      "risk_after": "Low"
+    },
+    {
+      "scanner": "Aqua",
+      "finding_id": "AQUA-001",
+      "linked_poam": "POAM-004",
+      "linked_cr": "CR-004",
+      "severity": "High",
+      "status": "fixed",
+      "risk_after": "Low"
+    },
+    {
+      "scanner": "ECR Image Scan",
+      "finding_id": "ECR-001",
+      "linked_poam": "POAM-005",
+      "linked_cr": "CR-005",
+      "severity": "Low",
+      "status": "accepted",
+      "risk_after": "Low"
+    },
+    {
+      "scanner": "Burp Suite",
+      "finding_id": "BURP-002",
+      "linked_poam": "POAM-006",
+      "linked_cr": "CR-006",
+      "severity": "Medium",
+      "status": "open",
+      "risk_after": "Low target",
+      "source": "SIA-001 partner interface change"
+    }
+  ]
+}
+
