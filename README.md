@@ -280,6 +280,34 @@ If `py` is unavailable and Python is installed as `python`, use:
 python scripts/generate_release_report.py
 ```
 
+## DevOps Cadence Pipeline
+
+This repo includes a scheduled GitHub Actions pipeline at `.github/workflows/devsecops-cadence.yml`.
+
+Cadence:
+
+- Weekly continuous monitoring package: every Monday at 09:00 UTC.
+- Monthly authorization evidence package: first day of each month at 10:00 UTC.
+- Manual release package: run `DevSecOps Cadence` with `cadence=release`.
+
+The pipeline validates the release summary generator, builds a timestamped SCA evidence package, and uploads the generated package as a GitHub Actions artifact with 90-day retention.
+
+Run the artifact generator locally:
+
+```powershell
+py scripts/generate_cadence_artifacts.py --cadence weekly
+py scripts/generate_cadence_artifacts.py --cadence monthly
+py scripts/generate_cadence_artifacts.py --cadence release
+```
+
+Generated packages are written under:
+
+```text
+artifacts/cadence/<UTC timestamp>-<cadence>/
+```
+
+The cadence configuration and artifact inventory are documented in `pipeline/cadence-plan.yml`.
+
 ## NIST Reference Notes
 
 Primary references used for this sample:
@@ -287,4 +315,3 @@ Primary references used for this sample:
 - NIST SP 800-53 Rev. 5, including updates through Release 5.2.0.
 - NIST SP 800-37 Rev. 2 for RMF framing, continuous monitoring, authorization, and change impact concepts.
 - NIST SP 800-18 Rev. 1 is referenced historically for SSP format concepts, but it was withdrawn on June 30, 2026 and superseded by SP 800-18 Rev. 2.
-

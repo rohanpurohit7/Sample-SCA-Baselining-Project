@@ -1,0 +1,75 @@
+system: CoordinationHub
+pipeline: DevSecOps Cadence
+artifact_root: artifacts/cadence
+cadences:
+  weekly:
+    schedule: "Mondays at 09:00 UTC"
+    purpose: "Continuous monitoring evidence refresh and release gate status."
+    generated_artifacts:
+      - artifact-manifest.json
+      - poam-status-summary.csv
+      - scanner-findings-summary.csv
+      - release-gate-decision.md
+      - evidence-index.md
+    source_artifacts:
+      - architecture/authorization-boundary.md
+      - architecture/inventory.csv
+      - controls/control-tailoring.md
+      - controls/ssp.md
+      - scanners/mock-scan-results.json
+      - scanners/mock-rescan-results-r1.0.1.json
+      - poam/poam-register.csv
+      - reports/security-test-report.md
+      - reports/risk-assessment-gap-analysis.md
+      - reports/release-r1.0.1-lmh-summary.md
+  monthly:
+    schedule: "First calendar day of each month at 10:00 UTC"
+    purpose: "Authorization evidence snapshot for control owners and AO review."
+    generated_artifacts:
+      - artifact-manifest.json
+      - poam-status-summary.csv
+      - scanner-findings-summary.csv
+      - release-gate-decision.md
+      - evidence-index.md
+    source_artifacts:
+      - architecture/authorization-boundary.md
+      - architecture/inventory.csv
+      - controls/control-tailoring.md
+      - controls/ssp.md
+      - scanners/mock-scan-results.json
+      - scanners/mock-rescan-results-r1.0.1.json
+      - poam/poam-register.csv
+      - reports/security-impact-analysis.md
+      - reports/security-test-plan.md
+      - reports/security-test-report.md
+      - reports/risk-assessment-gap-analysis.md
+      - reports/release-r1.0.1-lmh-summary.md
+  release:
+    schedule: "Manual workflow dispatch before CR board approval."
+    purpose: "Release-specific decision package."
+    generated_artifacts:
+      - artifact-manifest.json
+      - poam-status-summary.csv
+      - scanner-findings-summary.csv
+      - release-gate-decision.md
+      - evidence-index.md
+    source_artifacts:
+      - change-requests/CR-001-sql-injection.md
+      - change-requests/CR-002-xss.md
+      - change-requests/CR-003-authz.md
+      - change-requests/CR-004-container-hardening.md
+      - change-requests/CR-005-secret-handling.md
+      - change-requests/CR-006-sia-partner-interface.md
+      - poam/poam-register.csv
+      - scanners/mock-rescan-results-r1.0.1.json
+      - reports/security-test-report.md
+      - reports/release-r1.0.1-lmh-summary.md
+release_gate:
+  block_release_when:
+    high_open: "> 0"
+    medium_open: "> 0"
+    missing_source_artifact: true
+  allow_release_when:
+    high_open: 0
+    medium_open: 0
+    low_open_or_accepted: "documented residual risk decision"

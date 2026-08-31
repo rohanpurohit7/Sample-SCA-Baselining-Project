@@ -1,0 +1,68 @@
+name: DevSecOps Cadence
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      cadence:
+        description: "Artifact cadence to generate"
+        required: true
+        default: "weekly"
+        type: choice
+        options:
+          - weekly
+          - monthly
+          - release
+  schedule:
+    # Weekly continuous monitoring package: Mondays at 09:00 UTC.
+    - cron: "0 9 * * 1"
+    # Monthly authorization evidence package: first day of the month at 10:00 UTC.
+    - cron: "0 10 1 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  evidence-package:
+    name: Generate SCA Evidence Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Determine cadence
+        id: cadence
+        shell: bash
+        run: |
+          cadence="${{ github.event.inputs.cadence }}"
+          if [ -z "$cadence" ]; then
+            cadence="weekly"
+            if [ "${{ github.event.schedule }}" = "0 10 1 * *" ]; then
+              cadence="monthly"
+            fi
+          fi
+          echo "cadence=$cadence" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release report generator
+        run: python scripts/generate_release_report.py
+
+      - name: Generate cadence artifact package
+        run: python scripts/generate_cadence_artifacts.py --cadence "${{ steps.cadence.outputs.cadence }}"
+
+      - name: Upload cadence artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coordinationhub-sca-${{ steps.cadence.outputs.cadence }}-${{ github.run_number }}
+          path: artifacts/cadence/**
+          if-no-files-found: error
+          retention-days: 90
